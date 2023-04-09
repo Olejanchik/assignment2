@@ -1,5 +1,6 @@
 package ua.shpp.mjava.okuzmenko;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
@@ -8,14 +9,19 @@ import java.math.BigInteger;
 import static org.junit.jupiter.api.Assertions.*;
 
 class MultiplyingValuesTest {
-    MultiplyingValues valuesInt = new MultiplyingValues("int");
-    MultiplyingValues valuesDouble = new MultiplyingValues("double");
+    MultiplyingValues valuesInt;
+    MultiplyingValues valuesDouble;
+    @BeforeEach
+    public void before() {
+        valuesInt = new MultiplyingValues("int");
+        valuesDouble = new MultiplyingValues("double");
+    }
 
     @Test
     void getMinValueBI() {
         BigInteger value = valuesInt.getMinValueBI();
 
-        assertEquals(BigInteger.valueOf(2), value);
+        assertEquals(BigInteger.valueOf(1), value);
     }
 
     @Test
@@ -29,7 +35,7 @@ class MultiplyingValuesTest {
     void getMinValueBD() {
         BigDecimal value = valuesDouble.getMinValueBD();
 
-        assertEquals(BigDecimal.valueOf(2.0), value);
+        assertEquals(BigDecimal.valueOf(1.0), value);
     }
 
     @Test
