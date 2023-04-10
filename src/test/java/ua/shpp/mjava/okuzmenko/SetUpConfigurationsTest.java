@@ -15,7 +15,7 @@ class SetUpConfigurationsTest {
     public void getPropertiesTest() {
         Properties properties = table.readPropertiesFile("config.properties");
 
-        assertEquals("2", properties.getProperty("minValue"));
+        assertEquals("1", properties.getProperty("minValue"));
     }
 
     @Test
@@ -29,7 +29,7 @@ class SetUpConfigurationsTest {
     public void tablePropertiesMinValueTest() {
         String value = table.getPropertyMinValue();
 
-        assertEquals("2", value);
+        assertEquals("1", value);
     }
 
     @Test
