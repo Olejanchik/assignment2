@@ -3,8 +3,8 @@ package ua.shpp.mjava.okuzmenko;
 import org.junit.jupiter.api.Test;
 
 import java.util.Properties;
-
 import static java.util.Objects.isNull;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class SetUpConfigurationsTest {
@@ -21,8 +21,9 @@ class SetUpConfigurationsTest {
     @Test
     public void getPropertiesWithoutFileTest() {
         Properties properties = table.readPropertiesFile("as");
+        Properties emptyProperties = new Properties();
 
-        assertTrue(isNull(properties));
+        assertEquals(emptyProperties, properties);
     }
 
     @Test
@@ -45,5 +46,4 @@ class SetUpConfigurationsTest {
 
         assertEquals("1", value);
     }
-
 }

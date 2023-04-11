@@ -1,38 +1,61 @@
 package ua.shpp.mjava.okuzmenko;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public class SetUpConfigurations {
-    Logger logger = LoggerFactory.getLogger(SetUpConfigurations.class);
-    private final Properties properties = readPropertiesFile("config.properties");
+    private static final String DEFAULT_MIN_VALUE = "2";
+    private static final String DEFAULT_MAX_VALUE = "10";
+    private static final String DEFAULT_INCREMENT_VALUE = "1";
+    private static final String CONFIG_FILE = "config.properties";
+
+    private final Logger logger;
+    private final Properties properties;
+
+    public SetUpConfigurations() {
+        this.logger = LoggerFactory.getLogger(SetUpConfigurations.class);
+        this.properties = readPropertiesFile(CONFIG_FILE);
+    }
+
     public String getPropertyMinValue() {
-        return properties.getProperty("minValue", "2");
+        return getProperty("minValue", DEFAULT_MIN_VALUE);
     }
+
     public String getPropertyMaxValue() {
-        return properties.getProperty("maxValue", "10");
+        return getProperty("maxValue", DEFAULT_MAX_VALUE);
     }
+
     public String getPropertyIncrementValue() {
-        return properties.getProperty("increment", "1");
+        return getProperty("increment", DEFAULT_INCREMENT_VALUE);
     }
+
+    private String getProperty(String key, String defaultValue) {
+        if (properties == null) {
+            logger.warn("Properties not loaded, returning default value");
+            return defaultValue;
+        }
+        String value = properties.getProperty(key, defaultValue);
+        logger.debug("Property {}={}", key, value);
+        return value;
+    }
+
+    @SuppressWarnings("SameParameterValue")
     public Properties readPropertiesFile(String filename) {
         Properties properties = new Properties();
-        try {
-            InputStream configFile = SetUpConfigurations.class.getClassLoader().getResourceAsStream(filename);
-            properties.load(configFile);
-            if (configFile != null) {
-                configFile.close();
+        try (InputStream configFile = getClass().getClassLoader().getResourceAsStream(filename)) {
+            if (configFile == null) {
+                logger.warn("Config file {} not found, using default values", filename);
+                return properties;
             }
-            logger.debug("File read and closed successful");
-        } catch (Exception e) {
-            logger.warn("there is no file with this name, used default values", e);
-            return null;
+            properties.load(configFile);
+            logger.debug("Config file {} loaded successfully", filename);
+        } catch (IOException e) {
+            logger.warn("Failed to read properties from file {}, using default values", filename, e);
         }
         return properties;
     }
-
-
 }
