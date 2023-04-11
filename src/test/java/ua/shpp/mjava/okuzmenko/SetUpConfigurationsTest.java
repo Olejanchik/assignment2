@@ -12,21 +12,6 @@ class SetUpConfigurationsTest {
     private final SetUpConfigurations table = new SetUpConfigurations();
 
     @Test
-    public void getPropertiesTest() {
-        Properties properties = table.readPropertiesFile("config.properties");
-
-        assertEquals("1", properties.getProperty("minValue"));
-    }
-
-    @Test
-    public void getPropertiesWithoutFileTest() {
-        Properties properties = table.readPropertiesFile("as");
-        Properties emptyProperties = new Properties();
-
-        assertEquals(emptyProperties, properties);
-    }
-
-    @Test
     public void tablePropertiesMinValueTest() {
         String value = table.getPropertyMinValue();
 

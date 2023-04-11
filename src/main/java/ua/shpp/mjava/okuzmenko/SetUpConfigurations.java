@@ -44,7 +44,7 @@ public class SetUpConfigurations {
     }
 
     @SuppressWarnings("SameParameterValue")
-    public Properties readPropertiesFile(String filename) {
+    private Properties readPropertiesFile(String filename) {
         Properties properties = new Properties();
         try (InputStream configFile = getClass().getClassLoader().getResourceAsStream(filename)) {
             if (configFile == null) {
