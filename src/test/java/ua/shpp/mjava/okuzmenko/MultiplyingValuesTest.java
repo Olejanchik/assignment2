@@ -51,4 +51,19 @@ class MultiplyingValuesTest {
 
         assertEquals(1, value);
     }
+
+    @Test
+    void testConstructorInvalidInput() {
+        MultiplyingValues values = new MultiplyingValues("invalid");
+
+        BigInteger minValueBI = values.getMinValueBI();
+        BigInteger maxValueBI = values.getMaxValueBI();
+        BigDecimal minValueBD = values.getMinValueBD();
+        BigDecimal maxValueBD = values.getMaxValueBD();
+
+        assertNull(minValueBI);
+        assertNull(maxValueBI);
+        assertNull(minValueBD);
+        assertNull(maxValueBD);
+    }
 }
