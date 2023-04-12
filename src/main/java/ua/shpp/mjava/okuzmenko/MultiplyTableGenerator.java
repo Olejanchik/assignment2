@@ -40,7 +40,8 @@ public class MultiplyTableGenerator {
                 BigDecimal result = MultiplyTableGenerator.multiplyBigDecimal(value1.doubleValue(), value2.doubleValue());
                 row.append(String.format("%10s", result));
             }
-            logger.info(row.toString());
+            String rowInString = row.toString();
+            logger.info(rowInString);
         }
     }
 
@@ -55,7 +56,8 @@ public class MultiplyTableGenerator {
                 BigInteger result = MultiplyTableGenerator.multiplyBigInteger(value1.longValue(), value2.longValue());
                 row.append(String.format("%20s", result));
             }
-            logger.info(row.toString());
+            String rowInString = row.toString();
+            logger.info(rowInString);
         }
     }
 
